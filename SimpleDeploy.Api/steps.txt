@@ -1,0 +1,6 @@
+ssh-keygen -t rsa -b 4096 -C "simpledeploy"
+
+ssh-copy-id root@IP_DA_VPS
+ex: ssh-copy-id root@127.0.0.1
+
+docker run -d --name simpledeploy-api --restart unless-stopped --network bridge -p 8080:8080 -v ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro --add-host=host.docker.internal:host-gateway -e REMOTE_VPS_IP=127.0.0.1 simpledeploy-api:latest
