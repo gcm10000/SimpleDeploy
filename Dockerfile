@@ -14,7 +14,7 @@ RUN mkdir -p /root/.ssh && \
     [ -f /root/.ssh/id_rsa ] || ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa -q -N ""
 
 # Adiciona o usuário app de volta e ajusta permissões
-RUN useradd -m app && chown -R app /app
+RUN if ! id app 2>/dev/null; then useradd -m app; fi && chown -R app /app
 USER app
 
 # Build stage
